@@ -1,4 +1,4 @@
-package java.Lv2;
+package prog.java.Lv2;
 
 import java.util.ArrayList;
 import java.util.Collections;

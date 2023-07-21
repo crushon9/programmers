@@ -1,4 +1,4 @@
-package java.Lv2;
+package prog.java.Lv2;
 
 public class CorrectBracket {
     boolean solution(String s) {
