@@ -23,7 +23,7 @@ public class KakaoOpenChat {
         String[] answer = new String[ansLn];
 
         int cnt = ansLn;
-        // answer 에 메세지 넣기
+        // answer 에 메세지 담기
         for (int i = 0; i < record.length; i++) {
             String[] rcd = record[i].split(" ");
             if (rcd[0].equals("Enter")) {
