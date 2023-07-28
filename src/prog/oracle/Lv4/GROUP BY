@@ -22,6 +22,7 @@ ON a.REST_ID = R.REST_ID
 WHERE R.ADDRESS LIKE '서울%'
 ORDER BY SCORE DESC, VIEWS DESC;
 
+
 -- 년, 월, 성별 별 상품 구매 회원 수 구하기
 USER_INFO 테이블과 ONLINE_SALE 테이블에서
 년, 월, 성별 별로
