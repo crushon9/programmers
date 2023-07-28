@@ -9,6 +9,7 @@ public class Fibonacci {
         int pre = 1;
         int fibo = 0;
         for (int i = 1; i < n; i++) {
+            // int 오버플로우 때문에 숫자 조정
             ppre = ppre % 1234567;
             pre = pre % 1234567;
             fibo = ppre + pre;
