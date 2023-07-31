@@ -20,8 +20,8 @@ public class Fibonacci {
         return fibo % 1234567;
     }
 
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
 
         System.out.println(solution(7));
-    }
+    }*/
 }

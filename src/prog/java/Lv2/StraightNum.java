@@ -27,7 +27,7 @@ public class StraightNum {
         return answer;
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         System.out.println(solution(15));
-    }
+    }*/
 }

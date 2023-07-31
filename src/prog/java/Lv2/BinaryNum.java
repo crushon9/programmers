@@ -54,8 +54,8 @@ public class BinaryNum {
         }
     }
 
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
         System.out.println(Arrays.toString(solution("110010101001")));
         //System.out.println(biCasting(145));
-    }
+    }*/
 }
