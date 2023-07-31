@@ -1,0 +1,21 @@
+-- 입양 시각 구하기(2)
+-- LEVEL 기본값 1
+-- CONNECT BY LEVEL < 횟수
+SELECT
+A.HOUR
+,NVL(B.COUNT,0) AS COUNT
+FROM (
+        SELECT
+            (LEVEL-1) AS HOUR
+        FROM DUAL
+        CONNECT BY LEVEL <= 24
+    ) A
+LEFT JOIN (
+            SELECT
+              EXTRACT(HOUR FROM CAST(DATETIME AS TIMESTAMP)) AS HOUR
+             , COUNT(*) AS COUNT
+            FROM ANIMAL_OUTS
+            GROUP BY EXTRACT(HOUR FROM CAST(DATETIME AS TIMESTAMP))
+          ) B
+ON A.HOUR = B.HOUR
+ORDER BY A.HOUR
