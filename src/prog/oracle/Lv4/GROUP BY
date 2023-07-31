@@ -24,11 +24,7 @@ ORDER BY SCORE DESC, VIEWS DESC;
 
 
 -- 년, 월, 성별 별 상품 구매 회원 수 구하기
-USER_INFO 테이블과 ONLINE_SALE 테이블에서
-년, 월, 성별 별로
-상품을 구매한 회원수를 집계하는 SQL문을 작성해주세요. -- 여러번 구매한 회원은 중복처리 해야함
-결과는 년, 월, 성별을 기준으로 오름차순 정렬해주세요.
-이때, 성별 정보가 없는 경우 결과에서 제외해주세요.
+년, 월, 성별 별로 상품을 구매한 회원수를 집계하는 SQL문을 작성해주세요. -- 여러번 구매한 회원은 중복처리 해야함
 SELECT
     YEAR,MONTH,GENDER,COUNT(*) AS USERS
 FROM
@@ -43,3 +39,19 @@ FROM
     WHERE A.GENDER IS NOT NULL)
 GROUP BY YEAR,MONTH,GENDER
 ORDER BY YEAR,MONTH,GENDER;
+
+
+-- 저자 별 카테고리 별 매출액 집계하기
+SELECT
+A.AUTHOR_ID
+,A.AUTHOR_NAME
+,B.CATEGORY
+,SUM(S.SALES * B.PRICE) AS SALES
+FROM BOOK_SALES S
+INNER JOIN BOOK B
+ON B.BOOK_ID = S.BOOK_ID
+INNER JOIN AUTHOR A
+ON A.AUTHOR_ID = B.AUTHOR_ID
+WHERE TO_CHAR(SALES_DATE,'YYYYMM') = '202201'
+GROUP BY A.AUTHOR_ID, A.AUTHOR_NAME, B.CATEGORY
+ORDER BY A.AUTHOR_ID, B.CATEGORY DESC;
