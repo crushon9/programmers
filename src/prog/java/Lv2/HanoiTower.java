@@ -14,7 +14,6 @@ public class HanoiTower {
         for (int[] x : list) {
             answer[i] = x;
             i++;
-            System.out.println(Arrays.toString(x));
         }
 
         return answer;
@@ -34,6 +33,6 @@ public class HanoiTower {
 
     public static void main(String[] args) {
         HanoiTower h = new HanoiTower();
-        h.solution(4);
+        System.out.print(Arrays.deepToString(h.solution(2)));
     }
 }
