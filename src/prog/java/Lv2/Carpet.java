@@ -8,9 +8,9 @@ public class Carpet {
         int b_col = 0;
         int moseri = 4;
         for (int y_row = yellow; y_row > 0; y_row--) {
-            if (brown == moseri + y_row * 2 + (yellow / y_row * 2)) {
+            if (brown == moseri + y_row * 2 + (yellow / y_row * 2)) { // yellow / y_row : y_col
                 b_row = y_row + 2;
-                b_col = (brown + yellow) % b_row == 0 ? (brown + yellow) / b_row : -1;
+                b_col = (brown + yellow) % b_row == 0 ? (brown + yellow) / b_row : -1; // row와col은 정수여야만 하므로, 아닐경우 continue
                 if (b_col == -1) {
                     continue;
                 } else {
