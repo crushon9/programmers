@@ -30,4 +30,19 @@ public class RemovePairStr {
         RemovePairStr h = new RemovePairStr();
         System.out.print(h.solution("baabaa"));
     }
+
+    /*  public int solution(String str) {
+        String[] split = str.split(""); // 문자열을 한글자씩 쪼개서 배열로 만듬
+        Stack<String> stack = new Stack<>();
+
+        for (String s : split) {
+            if (!stack.isEmpty() && stack.peek().equals(s)) { // peek : 스택의 첫 번째 요소 또는 스택 맨 위에 있는 요소를 검색
+                stack.pop();
+            } else {
+                stack.push(s);
+            }
+        }
+
+        return stack.isEmpty() ? 1 : 0;
+    }*/
 }
