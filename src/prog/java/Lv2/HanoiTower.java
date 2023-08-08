@@ -31,8 +31,8 @@ public class HanoiTower {
         }
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         HanoiTower h = new HanoiTower();
         System.out.print(Arrays.deepToString(h.solution(3)));
-    }
+    }*/
 }

@@ -21,8 +21,8 @@ public class Carpet {
         return new int[]{b_row, b_col};
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Carpet ins = new Carpet();
         System.out.print(Arrays.toString(ins.solution(24, 24)));
-    }
+    }*/
 }
