@@ -1,6 +1,9 @@
 package prog.java.Lv2;
 
+import java.util.Stack;
+
 public class RemovePairStr {
+/*  시간초과 로직
     public int solution(String s) {
         String pre = s; // 짝지어 제거하기전 문자열 초기화
         String res = remove(s); // 제거한 후 문자열 초기화
@@ -24,25 +27,25 @@ public class RemovePairStr {
             }
         }
         return res;
-    }
+    }*/
 
     public static void main(String[] args) {
         RemovePairStr h = new RemovePairStr();
         System.out.print(h.solution("baabaa"));
     }
 
-    /*  public int solution(String str) {
-        String[] split = str.split(""); // 문자열을 한글자씩 쪼개서 배열로 만듬
-        Stack<String> stack = new Stack<>();
+    public int solution(String str) {
+        Stack<Character> stack = new Stack<>();
 
-        for (String s : split) {
-            if (!stack.isEmpty() && stack.peek().equals(s)) { // peek : 스택의 첫 번째 요소 또는 스택 맨 위에 있는 요소를 검색
+        for (int i = 0; i < str.length(); i++) {
+            // stack.peek() : 스택의 첫 번째 요소 또는 스택 맨 위에 있는 요소를 검색
+            if (!stack.isEmpty() && stack.peek().equals(str.charAt(i))) {
                 stack.pop();
             } else {
-                stack.push(s);
+                stack.push(str.charAt(i));
             }
         }
 
         return stack.isEmpty() ? 1 : 0;
-    }*/
+    }
 }
