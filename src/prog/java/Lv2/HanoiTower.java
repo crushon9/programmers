@@ -35,4 +35,18 @@ public class HanoiTower {
         HanoiTower h = new HanoiTower();
         System.out.print(Arrays.deepToString(h.solution(3)));
     }*/
+
+    /*
+    * 재귀적 방법의 팩토리얼
+    int factorialRecursive(int n) {
+        if(n<=1)
+            return 1;
+        return factorialRecursive(n-1) * n;
+    }
+    * 재귀 함수 포인트
+    * 1. 재귀 탈출 조건
+    * 2. 재귀 호출시 탈출 조건에 근사하도록 규모를 증감하며 호출 (n-1, n+1)
+    *
+    * 재귀 함수 단점
+    * 1. 스택오버플로우 */
 }
