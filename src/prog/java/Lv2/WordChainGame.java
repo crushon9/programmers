@@ -23,11 +23,11 @@ public class WordChainGame {
         return new int[]{who, seq};
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         WordChainGame h = new WordChainGame();
 
         int n = 3;
         String[] words = {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"};
         System.out.print(Arrays.toString(h.solution(n, words)));
-    }
+    }*/
 }

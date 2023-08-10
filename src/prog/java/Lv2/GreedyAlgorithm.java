@@ -28,13 +28,13 @@ public class GreedyAlgorithm {
         return answer;
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         GreedyAlgorithm h = new GreedyAlgorithm();
 
         int[] people = {70, 50, 80, 50};
         int limit = 100;
         System.out.print(h.solution(people, limit));
-    }
+    }*/
 
 /*    public int solution(int[] people, int limit) {
         Arrays.sort(people);
