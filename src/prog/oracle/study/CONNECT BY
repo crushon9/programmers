@@ -1,0 +1,13 @@
+-- 계층형 조회 순방향
+SELECT LPAD(' ',(LEVEL-1)*5) ||ORG_NAME
+FROM VW_ORG
+START WITH up_org_cd = 'zero'
+CONNECT BY prior org_cd = UP_ORG_CD;
+
+-- 계층형 조회 역방향
+SELECT LPAD(' ',(LEVEL-1)*5) ||ORG_NAME
+FROM VW_ORG
+START WITH ORG_CD = '2080100'
+CONNECT BY prior UP_ORG_CD = ORG_CD;
+
+-- START WITH 에 기준점으로 잡은 데이터는 조회되지 않음
