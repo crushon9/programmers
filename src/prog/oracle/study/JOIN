@@ -1,6 +1,6 @@
--- LEFT JOIN = LEFT OUTER JOIN
+-- LEFT OUTER JOIN = LEFT JOIN
 왼쪽 테이블의 전체데이터 + 오른쪽 테이블의 겹치는 데이터
 만약 왼쪽 테이블의 한 행의 키에 해당하는 오른쪽 테이블의 데이터가 여러행이 있다면 여러행으로 조회
 오른쪽 테이블에 해당하는 데이터가 없다면 NULL로 표기
--- INNER JOIN
+-- INNER JOIN = JOIN
 서로 교집합
