@@ -1,11 +1,19 @@
 WHERE EXISTS (서브쿼리)의 의미
-1. 서브쿼리로 출력한 값들 안에 메인쿼리 값이 속하는가? (IN과 비슷)
-    아래 구문에서 존재한다면 SELECT문 조회, 아니라면 조회하지않음
+1. 메인쿼리의 테이블이 서브쿼리에도 있을 때
+   : 메인쿼리의 select 컬럼을 서브쿼리의 1의 자리에 넣었을때 조회한 목록 중에
+     해당되는 행은 출력 아니라면 출력하지 않음
 SELECT ENAME, SAL FROM EMP WHERE EXISTS (SELECT 1 FROM EMP WHERE SAL > 20000);
 
-2. 연관컬럼을 넣어 조회되는가 아닌가
-    메인 쿼리에서 연관 컬럼(A.ID)을 서브쿼리에 한 행씩 넣어보면서
-    조회가되면(존재하면) 메인쿼리에서도 해당 행을 출력하고, 없으면 출력하지 않는다
+2. 메인쿼리의 테이블이 서브쿼리에 존재하지 않으며 연관 컬럼만 등장할 때
+   : 연관 컬럼이 속한 테이블은 LEFT OUTEER JOIN 하고
+     메인 쿼리 기준으로 연관 컬럼(A.ID)값을 서브쿼리에 하나씩 넣어보면서
+     조회가되면(존재하면) 메인쿼리에서 해당 행을 출력하고, 없으면 출력하지 않는다
+
+  [예시 테이블 정보]
+-- MEMBER 회원테이블(PK id)
+-- EVENT 이벤트(PK eventid)
+-- SENDMAIL 이벤트마다 회원에게 메일을 보낸 사건(FK id, eventid)
+-- 아래 쿼리는 이벤트건수보다 메일발송건수가 적은 회원을 조회하는 쿼리
 SELECT A.ID
 FROM MEMBER A
 WHERE EXISTS(SELECT 1
@@ -13,3 +21,14 @@ WHERE EXISTS(SELECT 1
 			WHERE B.EVENTID = C.EVENTID
 			AND A.ID = C.ID
 			HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT));
+// EVENT B, SENDMAIL C 가 inner join 된 결과가 MEMBER A에 left join 된 것과 같다
+
+SELECT A.ID, COUNT(*)
+FROM EVENT B, SENDMAIL C, MEMBER A
+WHERE B.EVENTID = C.EVENTID
+AND A.ID = C.ID
+GROUP BY A.ID
+HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT)
+ORDER BY A.ID;
+// 이 경우에는 모든 테이블이 inner join 되었기 때문에 SENDMAIL C에 존재하는 회원중에서 조건을 따짐
+   사실 SENDMAIL C는 MEMBER A에 종속되어있으므로 MEMBER A를 조인하지 않아도 결과는 같음
