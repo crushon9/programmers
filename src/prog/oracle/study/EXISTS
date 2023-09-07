@@ -1,3 +1,15 @@
--- EXISTS는 서브쿼리로 어떤 데이터의 존재 여부(T, F)를 확인하는 것이다.
--- 아래 구문에서 존재한다면 SELECT문 조회, 아니라면 조회하지않음
+WHERE EXISTS (서브쿼리)의 의미
+1. 서브쿼리로 출력한 값들 안에 메인쿼리 값이 속하는가? (IN과 비슷)
+    아래 구문에서 존재한다면 SELECT문 조회, 아니라면 조회하지않음
 SELECT ENAME, SAL FROM EMP WHERE EXISTS (SELECT 1 FROM EMP WHERE SAL > 20000);
+
+2. 연관컬럼을 넣어 조회되는가 아닌가
+    메인 쿼리에서 연관 컬럼(A.ID)을 서브쿼리에 한 행씩 넣어보면서
+    조회가되면(존재하면) 메인쿼리에서도 해당 행을 출력하고, 없으면 출력하지 않는다
+SELECT A.ID
+FROM MEMBER A
+WHERE EXISTS(SELECT 1
+			FROM EVENT B, SENDMAIL C
+			WHERE B.EVENTID = C.EVENTID
+			AND A.ID = C.ID
+			HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT));
