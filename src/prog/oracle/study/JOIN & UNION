@@ -1,4 +1,4 @@
-[JOIN은 컬럼끼리 값을 합치는 것 - 기준 key 가 있음]
+[JOIN은 컬럼끼리 값을 합치는 것 - 기준 key컬럼 있음]
 -- LEFT OUTER JOIN = LEFT JOIN
 왼쪽 테이블의 전체데이터 + 오른쪽 테이블의 겹치는 데이터
 만약 왼쪽 테이블의 한 행의 키에 해당하는 오른쪽 테이블의 데이터가 여러행이 있다면 여러행으로 조회
@@ -8,30 +8,11 @@
 서로 교집합
 
 -- CROSS JOIN
-key 없이 select의 모든 값끼리 교차
+key 없이 select의 모든 값끼리 교차(카다시안 곱)
 
 ========================================================
-[UNION은 행끼리 값을 합치는 것 - 기준 key 없음]
+[UNION은 행끼리 값을 합치는 것 - 기준 key컬럼 없음]
 -- INTERSECT 교집합
--- JOB ='SALESMAN'만 조회
-SELECT * FROM EMP e
-MINUS
-SELECT * FROM EMP e WHERE JOB ='SALESMAN';
-
 -- UNION 중복제거후 정렬하여 합치기
--- 중복이 제거 되므로 전체 행 조회
-SELECT * FROM EMP e
-MINUS
-SELECT * FROM EMP e WHERE JOB ='SALESMAN';
-
--- UNION ALL 그냥 합치기
--- 전체행 + 'SALESMAN' 중복되어 조회
-SELECT * FROM EMP e
-MINUS
-SELECT * FROM EMP e WHERE JOB ='SALESMAN';
-
--- MINUS 차집합 먼저 쓴 SELECT문에는 있고 뒤에 쓰는 SELECT문에는 없는 집합을 조회
--- JOB ='SALESMAN'가 아닌 다른 행만 조회
-SELECT * FROM EMP e
-MINUS
-SELECT * FROM EMP e WHERE JOB ='SALESMAN';
+-- UNION ALL 중복두고 그대로 합치기
+-- MINUS(EXCEPT) 차집합 먼저 쓴 SELECT문에는 있고 뒤에 쓰는 SELECT문에는 없는 집합을 조회
