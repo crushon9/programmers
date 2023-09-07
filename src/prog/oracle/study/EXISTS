@@ -21,19 +21,10 @@ WHERE EXISTS(SELECT 1
 			WHERE B.EVENTID = C.EVENTID
 			AND A.ID = C.ID
 			HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT));
-// EVENT B, SENDMAIL C 가 inner join 된 결과가 MEMBER A에 left join 된 것과 같다
-// 아래의 결과와 같음
-// group by 대신 exists를 사용하면 차이가 뭘까? select 구문에서 자유롭게 데이터를 가져올 수 있음
-SELECT A.ID, COUNT(*)
-FROM EVENT B, SENDMAIL C, MEMBER A
-WHERE B.EVENTID(+) = C.EVENTID
-AND A.ID = C.ID(+)
-GROUP BY A.ID
-HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT)
-ORDER BY A.ID;
 
-// 아래 경우에는 모든 테이블이 inner join 되었기 때문에 SENDMAIL C에 존재하는 회원중에서 조건을 따짐
-   사실 SENDMAIL C는 MEMBER A에 종속되어있으므로 MEMBER A를 조인하지 않아도 결과는 같음
+// 처음엔 위의 쿼리를 아래의 쿼리와 같다고 생각했지만
+   아래의 경우는 모든 테이블이 INNER JOIN 되었기 때문에 SENDMAIL C에 존재하는 회원중에서 조건을 따지므로 결과값이 달라짐
+   (사실 SENDMAIL C는 MEMBER A에 종속되어있으므로 MEMBER A를 조인하지 않아도 결과는 같음)
 SELECT A.ID, COUNT(*)
 FROM EVENT B, SENDMAIL C, MEMBER A
 WHERE B.EVENTID = C.EVENTID
@@ -41,3 +32,19 @@ AND A.ID = C.ID
 GROUP BY A.ID
 HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT)
 ORDER BY A.ID;
+
+// 결론은 **아래의 MEMBER A기준으로 LEFT OUTER JOIN과 결과가 같음
+SELECT A.ID, COUNT(*)
+FROM EVENT B, SENDMAIL C, MEMBER A
+WHERE B.EVENTID(+) = C.EVENTID
+AND A.ID = C.ID(+)
+GROUP BY A.ID
+HAVING COUNT(*) < (SELECT COUNT(*) FROM EVENT)
+ORDER BY A.ID;
+// (+) 기호실험 결과
+  : WHERE절 AND 순서에 상관없이(+)가 붙은 테이블은 NULL로 조회됨(OUTER JOIN 된다)
+    (+) 기호는 =연산에서 한 쪽에만 사용 가능하며 (SQL Error [1468] [72000]: ORA-01468: outer-join된 테이블은 1개만 지정할 수 있습니다)
+    한 테이블 당 한 번만 사용가능하다 (SQL Error [1417] [72000]: ORA-01417: 하나의 테이블은 하나의 다른 테이블과 포괄 조인할 수 있습니다)
+
+
+// GROUP BY 대신 EXISTS를 사용하면 차이가 뭘까? SELECT 구문에서 자유롭게 데이터를 가져올 수 있을 듯
