@@ -7,9 +7,17 @@ SELECT JOB
  GROUP BY JOB;
 
 -- 소계 : GROUP BY ROLLUP, GROUPING SETS, CUBE
-SELECT DEPTNO, JOB, SUM(SAL) FROM EMP GROUP BY ROLLUP (DEPTNO,JOB); -- 왼쪽기준으로 정렬되며 소계
-SELECT DEPTNO, JOB, SUM(SAL) FROM EMP GROUP BY GROUPING SETS (DEPTNO,JOB); -- 각각 독립적으로 소계
-SELECT DEPTNO, JOB, SUM(SAL) FROM EMP GROUP BY CUBE (DEPTNO,JOB); -- 모든 경우의수 소계
+1. 그룹 컬럼이 하나일때
+GROUP BY ROLLUP(A) : 전체합계만 출력
+ = GROUP BY CUBE(A)
+ = GROUP BY GROUPING SETS(A, ())
+
+2. 그룹 컬럼이 두개일때
+GROUP BY ROLLUP(A ,B) : A부분합, 전체합계출력
+ = GROUP BY GROUPING SETS(A, (A, B), ())
+
+GROUP BY CUBE(A, B) : A부분합, B부분합, 전체합계출력
+ = GROUP BY GROUPING SETS(A, B, (A, B), ())
 
 ====================================
 [윈도우 함수는 행의 개수가 그대로 출력되며 컬럼만 하나 더 붙어 나옴]
