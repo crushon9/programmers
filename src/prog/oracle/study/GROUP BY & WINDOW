@@ -22,7 +22,7 @@ GROUP BY CUBE(A, B) : A부분합, B부분합, 전체합계출력
 ====================================
 [윈도우 함수는 행의 개수가 그대로 출력되며 컬럼만 하나 더 붙어 나옴]
 -- SELECT 절에서 선택할 수 있는 컬럼에 영향을 주지 않는다
--- 윈도우함수가 계산할때 다른행과의 관계를 옵션으로 정의할 수 있다 1.그룹화하는 partitionby절 2.정렬하는 orderby절 3.범위를지정하는windoing절
+-- 윈도우함수가 계산할때 다른행과의 관계를 옵션으로 정의할 수 있다 1.그룹화하는 partition by절 2.정렬하는 order by절 3.범위를지정하는 windowing절
 -- 윈도우 함수 구조 : SELECT *윈도우함수(^인수) *OVER (^PARTITION BY 칼럼명 ^ORDER BY절 ^WINDOWING절) FROM 테이블명; (*:필수, ^:옵션)
 
 SELECT

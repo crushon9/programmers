@@ -1,10 +1,10 @@
--- 계층형 조회 순방향
+-- 계층형 조회 순방향 (prior 자식 = 부모)
 SELECT LPAD(' ',(LEVEL-1)*5) ||ORG_NAME,org_cd,UP_ORG_CD
 FROM VW_ORG
 START WITH org_cd = 'zero'
 CONNECT BY prior org_cd = UP_ORG_CD;
 
--- 계층형 조회 역방향
+-- 계층형 조회 역방향 (prior 부모 = 자식)
 SELECT LPAD(' ',(LEVEL-1)*5) ||ORG_NAME,org_cd,UP_ORG_CD
 FROM VW_ORG
 START WITH ORG_CD = '2080100'
@@ -13,13 +13,15 @@ CONNECT BY prior UP_ORG_CD = ORG_CD;
 ============================
 1.  START WITH 컬럼 = 값
     START WITH 컬럼 IN (값1,값2)
-2.  CONNECT BY [NOCYCLE] PRIOR A컬럼 = B컬럼
+2.  CONNECT BY [NOCYCLE] PRIOR A컬럼 = B컬럼 [추가조건]
     START WITH 에 기준점으로 잡은 데이터를 첫 행으로 불러오고 (LEVEL1),
     첫 행의 A컬럼값이 B컬럼의 값으로 일치하는 행을 모두 가져온다(LEVEL2),
     이후 가지 뻗어나기로 그 행들의 A컬럼값이 B컬럼의 값으로 일치하는 행을 없을때까지 계속 수행한다(LEVEL++)
     NOCYCLE옵션 : 데이터를 전개하면서 이미 나타났던 동일한 데이터가 전개중에 다시 나타나지 않도록 방지
+    추가조건 : 연결할 때 추가 조건에 부합하는 행만 연결됨
 3. WHERE : 계층 구조를 만든 다음 where절 적용
-4. ORDER SIBLINGS BY 조건 : 동일한 부모를 가진 레벨의 행들을 조건에 맞춰서 정렬
+    START WITH 로 조회된 행도 걸러짐
+4. ORDER SIBLINGS BY 조건 : 동일한 부모를 가진 레벨의 행들이 조건에 맞춰 정렬, 형제끼리만 우선으로 모여서 정렬됨
 
 기타 내장함수
 CONNECT_BY_ISLEAF : 최하위 노드인 경우 1을 반환, 아닌 경우 0을 반환
